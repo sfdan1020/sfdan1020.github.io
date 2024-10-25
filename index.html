@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Community Registration</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Link to external CSS file for styling -->
+    <link rel="stylesheet" href="styles.css">
     <style>
         /* Basic styling for the form and page */
         body {
@@ -80,6 +80,14 @@
             text-decoration: underline;
         }
     </style>
+
+    <!-- Customer.io Tracking Script -->
+    <script>
+        !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on","addSourceMiddleware","addIntegrationMiddleware","setAnonymousId","addDestinationMiddleware"];analytics.factory=function(e){return function(){var t=Array.prototype.slice.call(arguments);t.unshift(e);analytics.push(t);return analytics}};for(var e=0;e<analytics.methods.length;e++){var key=analytics.methods[e];analytics[key]=analytics.factory(key)}analytics.load=function(key,e){var t=document.createElement("script");t.type="text/javascript";t.async=!0;t.src="https://cdp-eu.customer.io/v1/analytics-js/snippet/" + key + "/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(t,n);analytics._writeKey=key;analytics._loadOptions=e};analytics.SNIPPET_VERSION="4.15.3";
+        analytics.load("4f630e239b963a29f6ea");
+        analytics.page();
+        }}();
+    </script>
 </head>
 <body>
 
@@ -110,13 +118,6 @@
         </div>
     </div>
 
-    <!-- Customer.io Tracking Script -->
-    <script>
-        !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on","addSourceMiddleware","addIntegrationMiddleware","setAnonymousId","addDestinationMiddleware"];analytics.factory=function(e){return function(){var t=Array.prototype.slice.call(arguments);t.unshift(e);analytics.push(t);return analytics}};for(var e=0;e<analytics.methods.length;e++){var key=analytics.methods[e];analytics[key]=analytics.factory(key)}analytics.load=function(key,e){var t=document.createElement("script");t.type="text/javascript";t.async=!0;t.src="https://cdp-eu.customer.io/v1/analytics-js/snippet/" + key + "/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(t,n);analytics._writeKey=key;analytics._loadOptions=e};analytics.SNIPPET_VERSION="4.15.3";
-        analytics.load("4f630e239b963a29f6ea");
-        analytics.page();
-        }}();
-    </script>
     <script>
         document.getElementById('registrationForm').addEventListener('submit', function(event) {
             event.preventDefault(); // Prevents the form from submitting the traditional way
@@ -128,16 +129,21 @@
                 email: document.getElementById('email').value
             };
 
-            // Identify and send data to Customer.io
-            analytics.identify(formData.email, {
-                firstName: formData.firstName,
-                lastName: formData.lastName,
-                email: formData.email
-            });
+            // Ensure Customer.io tracking is available before calling identify
+            if (window.analytics) {
+                // Identify and send data to Customer.io
+                analytics.identify(formData.email, {
+                    firstName: formData.firstName,
+                    lastName: formData.lastName,
+                    email: formData.email
+                });
 
-            // Redirect to potloc.com after successful registration
-            alert("Registration successful!");
-            window.location.href = "https://www.potloc.com";
+                // Redirect to potloc.com after successful registration
+                alert("Registration successful!");
+                window.location.href = "https://www.potloc.com";
+            } else {
+                console.error("Customer.io analytics not loaded.");
+            }
         });
     </script>
 
