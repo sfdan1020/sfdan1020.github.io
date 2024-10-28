@@ -93,7 +93,6 @@
 
     <div class="container">
         <h1>Join Our Community</h1>
-        <!-- Removed the action attribute to prevent PHP-based submission -->
         <form id="registrationForm">
             <div class="form-group">
                 <label for="firstName">First Name</label>
@@ -122,21 +121,17 @@
         document.getElementById('registrationForm').addEventListener('submit', function(event) {
             event.preventDefault(); // Prevents the form from submitting the traditional way
 
-            // Capture form data
+            // Capture form data with desired attribute names
             const formData = {
-                firstName: document.getElementById('firstName').value,
-                lastName: document.getElementById('lastName').value,
+                first_name: document.getElementById('firstName').value,
+                last_name: document.getElementById('lastName').value,
                 email: document.getElementById('email').value
             };
 
             // Ensure Customer.io tracking is available before calling identify
             if (window.analytics) {
                 // Identify and send data to Customer.io
-                analytics.identify(formData.email, {
-                    firstName: formData.firstName,
-                    lastName: formData.lastName,
-                    email: formData.email
-                });
+                analytics.identify(formData.email, formData);
 
                 // Redirect to potloc.com after successful registration
                 alert("Registration successful!");
