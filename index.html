@@ -133,8 +133,8 @@
             if (window.analytics) {
                 // Identify and send data to Customer.io
                 analytics.identify(formData.email, {
-                    firstName: formData.firstName,
-                    lastName: formData.lastName,
+                    firstName: formData.first_name,
+                    lastName: formData.last_name,
                     email: formData.email
                 });
 
