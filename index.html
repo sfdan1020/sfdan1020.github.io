@@ -129,10 +129,17 @@
                 locale: navigator.language || 'en-US' // Capture the browser's locale
             };
 
+            console.log("Sending the following data to Customer.io:", formData); // For debugging
+
             // Ensure Customer.io tracking is available before calling identify
             if (window.analytics) {
                 // Identify and send data to Customer.io
-                analytics.identify(formData.email, formData);
+                analytics.identify(formData.email, {
+                    first_name: formData.first_name,
+                    last_name: formData.last_name,
+                    locale: formData.locale,
+                    email: formData.email
+                });
 
                 // Redirect to potloc.com after successful registration
                 alert("Registration successful!");
