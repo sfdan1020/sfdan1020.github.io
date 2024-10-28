@@ -96,13 +96,13 @@
         <!-- Removed the action attribute to prevent PHP-based submission -->
         <form id="registrationForm">
             <div class="form-group">
-                <label for="first_name">First Name</label>
-                <input type="text" id="first_name" name="first_name" required>
+                <label for="firstName">First Name</label>
+                <input type="text" id="firstName" name="firstName" required>
             </div>
 
             <div class="form-group">
-                <label for="last_name">Last Name</label>
-                <input type="text" id="last_name" name="last_name" required>
+                <label for="lastName">Last Name</label>
+                <input type="text" id="lastName" name="lastName" required>
             </div>
 
             <div class="form-group">
@@ -124,8 +124,8 @@
 
             // Capture form data
             const formData = {
-                first_name: document.getElementById('first_name').value,
-                last_name: document.getElementById('last_name').value,
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
                 email: document.getElementById('email').value
             };
 
@@ -133,8 +133,8 @@
             if (window.analytics) {
                 // Identify and send data to Customer.io
                 analytics.identify(formData.email, {
-                    first_name: formData.first_name,
-                    last_name: formData.last_name,
+                    firstName: formData.firstName,
+                    lastName: formData.lastName,
                     email: formData.email
                 });
 
