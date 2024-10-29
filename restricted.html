@@ -4,11 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Restricted Page</title>
+    <style>
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            max-width: 800px;
+            margin: 20px auto;
+            font-family: Arial, sans-serif;
+        }
+        .message-box {
+            width: 45%;
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <h1>Welcome to the Restricted Page</h1>
-        <p>This page is accessible only through the verification link.</p>
+        <div id="employment-inline-message" class="message-box">
+            <!-- Placeholder for Employment inline in-app message -->
+            <p>Loading Employment message...</p>
+        </div>
+        
+        <div id="automobiles-inline-message" class="message-box">
+            <!-- Placeholder for Automobiles inline in-app message -->
+            <p>Loading Automobiles message...</p>
+        </div>
+
+        <div id="food-inline-message" class="message-box">
+            <!-- Placeholder for Food inline in-app message -->
+            <p>Loading Food message...</p>
+        </div>
+
+        <div id="entertainment-inline-message" class="message-box">
+            <!-- Placeholder for Entertainment inline in-app message -->
+            <p>Loading Entertainment message...</p>
+        </div>
     </div>
 
     <!-- Customer.io Tracking Script with In-App Messaging Enabled -->
