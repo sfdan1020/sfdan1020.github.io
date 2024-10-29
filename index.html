@@ -3,55 +3,152 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
-</head>
-<body>
-    <div class="container">
-        <h1>Register</h1>
-        <form id="registrationForm">
-            <label for="firstName">First Name:</label>
-            <input type="text" id="firstName" name="first_name" required>
-            <label for="lastName">Last Name:</label>
-            <input type="text" id="lastName" name="last_name" required>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-            <button type="submit">Register</button>
-        </form>
-    </div>
+    <title>Community Registration</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Basic styling for the form and page */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"] {
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        input[type="submit"] {
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #218838;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .login-link a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
 
     <!-- Customer.io Tracking Script -->
     <script>
         !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on","addSourceMiddleware","addIntegrationMiddleware","setAnonymousId","addDestinationMiddleware"];analytics.factory=function(e){return function(){var t=Array.prototype.slice.call(arguments);t.unshift(e);analytics.push(t);return analytics}};for(var e=0;e<analytics.methods.length;e++){var key=analytics.methods[e];analytics[key]=analytics.factory(key)}analytics.load=function(key,e){var t=document.createElement("script");t.type="text/javascript";t.async=!0;t.src="https://cdp-eu.customer.io/v1/analytics-js/snippet/" + key + "/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(t,n);analytics._writeKey=key;analytics._loadOptions=e};analytics.SNIPPET_VERSION="4.15.3";
-            analytics.load("4f630e239b963a29f6ea"); 
-            analytics.page();
+        analytics.load("4f630e239b963a29f6ea");
+        analytics.page();
         }}();
+    </script>
+</head>
+<body>
 
-        // Registration form submission
+    <div class="container">
+        <h1>Join Our Community</h1>
+        <form id="registrationForm">
+            <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input type="text" id="firstName" name="firstName" required>
+            </div>
+
+            <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" id="lastName" name="lastName" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <input type="submit" value="Register">
+        </form>
+
+        <div class="login-link">
+            <p>Already have an account? <a href="https://www.potloc.com">Login here</a>.</p>
+        </div>
+    </div>
+
+    <script>
         document.getElementById('registrationForm').addEventListener('submit', function(event) {
-            event.preventDefault();
+            event.preventDefault(); // Prevents the form from submitting the traditional way
 
+            // Capture form data with desired attribute names
             const formData = {
                 first_name: document.getElementById('firstName').value,
                 last_name: document.getElementById('lastName').value,
                 email: document.getElementById('email').value,
-                locale: navigator.language || 'en-US'
+                locale: navigator.language || 'en-US' // Capture the browser's locale
             };
 
+            console.log("Sending the following data to Customer.io:", formData); // For debugging
+
+            // Ensure Customer.io tracking is available before calling identify
             if (window.analytics) {
+                // Identify and send data to Customer.io
                 analytics.identify(formData.email, {
-                    email: formData.email,
                     first_name: formData.first_name,
                     last_name: formData.last_name,
-                    locale: formData.locale
+                    locale: formData.locale,
+                    email: formData.email
                 });
-                console.log("User registered with email identifier:", formData.email);
+
+                // Redirect to verify after successful registration
+                alert("Registration successful!");
+                window.location.href = "https://sfdan1020.github.io/verify.html";
             } else {
                 console.error("Customer.io analytics not loaded.");
             }
-
-            alert("Registration successful! Please verify your email.");
-            window.location.href = "verify.html"; // Redirect to verification prompt page
         });
     </script>
+
 </body>
 </html>
