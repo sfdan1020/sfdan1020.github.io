@@ -18,33 +18,19 @@
             analytics.page();
         }}();
 
-        // Check for email or cio_id parameter in the URL
+        // Check for cio_id parameter in the URL
         const urlParams = new URLSearchParams(window.location.search);
-        const userEmail = urlParams.get('email');
         const cioId = urlParams.get('cio_id');
-        const firstName = urlParams.get('first_name'); // Optional parameter
-        const lastName = urlParams.get('last_name');   // Optional parameter
 
-        // Redirect if both email and cio_id are missing
-        if (!userEmail && !cioId) {
+        // Redirect if cio_id is missing
+        if (!cioId) {
             alert("Access denied: You must access this page through the verification link.");
             window.location.href = "https://sfdan1020.github.io/index.html"; // Redirect to the registration page
         } else {
-            // Prepare the attributes object to avoid overwriting existing attributes
-            const attributes = {
-                email: userEmail || null,
-                cio_id: cioId || null
-            };
-            
-            // Conditionally add first_name and last_name if they are present in the URL
-            if (firstName) attributes.first_name = firstName;
-            if (lastName) attributes.last_name = lastName;
-
-            // Identify the user in Customer.io
+            // Identify the user in Customer.io with only the cio_id to avoid overwriting attributes
             if (window.analytics) {
-                const identifier = userEmail || cioId;
-                analytics.identify(identifier, attributes);
-                console.log("User identified with identifier:", identifier, attributes);
+                analytics.identify(cioId); // Only use cio_id to identify
+                console.log("User identified with cio_id:", cioId);
             } else {
                 console.error("Customer.io analytics not loaded.");
             }
