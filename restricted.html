@@ -15,7 +15,7 @@
         .page-header {
             text-align: center;
             padding: 40px 20px 20px;
-            margin-top: 20px; /* Space for a potential menu */
+            margin-top: 20px;
         }
 
         .page-header h1 {
@@ -59,22 +59,18 @@
     <!-- Container for In-App Messages -->
     <div class="container">
         <div id="employment-inline-message" class="message-box">
-            <!-- Placeholder for Employment inline in-app message -->
             <p>Loading Employment message...</p>
         </div>
         
         <div id="automobiles-inline-message" class="message-box">
-            <!-- Placeholder for Automobiles inline in-app message -->
             <p>Loading Automobiles message...</p>
         </div>
 
         <div id="food-inline-message" class="message-box">
-            <!-- Placeholder for Food inline in-app message -->
             <p>Loading Food message...</p>
         </div>
 
         <div id="entertainment-inline-message" class="message-box">
-            <!-- Placeholder for Entertainment inline in-app message -->
             <p>Loading Entertainment message...</p>
         </div>
     </div>
@@ -94,25 +90,20 @@
                     }
                 }
             );
+
+            // Track page view immediately when page loads
             analytics.page();
         }}();
 
-        // Check for cio_id parameter in the URL
+        // Check for cio_id parameter in the URL to handle access restriction
         const urlParams = new URLSearchParams(window.location.search);
         const cioId = urlParams.get('cio_id');
 
-        // Redirect if cio_id is missing
         if (!cioId) {
             alert("Access denied: You must access this page through the verification link.");
             window.location.href = "https://sfdan1020.github.io/index.html"; // Redirect to the registration page
         } else {
-            // Track page view for the user with Customer.io page() instead of identify()
-            if (window.analytics) {
-                analytics.page(); // Track page view without creating/modifying profile
-                console.log("Page view tracked for cio_id:", cioId);
-            } else {
-                console.error("Customer.io analytics not loaded.");
-            }
+            console.log("Page view tracked for cio_id:", cioId);
         }
     </script>
 </body>
