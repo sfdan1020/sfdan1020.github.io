@@ -18,12 +18,16 @@
             analytics.page();
         }}}();
 
-        // Extract the email or token from the URL
+        // Check for the email or id parameter in the URL
         const urlParams = new URLSearchParams(window.location.search);
-        const userEmail = urlParams.get('email');
+        const userEmail = urlParams.get('email'); // Adjust as necessary, e.g., const userId = urlParams.get('id');
 
-        if (userEmail) {
-            // Identify the user in Customer.io
+        // Redirect if the parameter is missing
+        if (!userEmail) {
+            alert("Access denied: You must access this page through the verification link.");
+            window.location.href = "https://sfdan1020.github.io/index.html"; // Redirect to the registration page
+        } else {
+            // Identify the user in Customer.io (optional)
             if (window.analytics) {
                 analytics.identify(userEmail, {
                     email: userEmail
@@ -32,9 +36,6 @@
             } else {
                 console.error("Customer.io analytics not loaded.");
             }
-        } else {
-            alert("Access denied: No valid token or email provided.");
-            // Optionally redirect to an error or login page
         }
     </script>
 </body>
