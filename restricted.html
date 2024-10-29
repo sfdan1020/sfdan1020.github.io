@@ -75,11 +75,11 @@
         </div>
     </div>
 
-    <!-- Customer.io Tracking Script with In-App Messaging Enabled -->
+    <!-- Basic Customer.io Tracking Script Without In-App Messaging -->
     <script>
         !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on","addSourceMiddleware","addIntegrationMiddleware","setAnonymousId","addDestinationMiddleware"];analytics.factory=function(e){return function(){var t=Array.prototype.slice.call(arguments);t.unshift(e);analytics.push(t);return analytics}};for(var e=0;e<analytics.methods.length;e++){var key=analytics.methods[e];analytics[key]=analytics.factory(key)}analytics.load=function(key){var t=document.createElement("script");t.type="text/javascript";t.async=!0;t.src="https://cdp-eu.customer.io/v1/analytics-js/snippet/" + key + "/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(t,n);analytics._writeKey=key};analytics.SNIPPET_VERSION="4.15.3";
             
-            // Enable Customer.io tracking with In-App Messaging integration
+            // Basic Customer.io Tracking
             analytics.load("4f630e239b963a29f6ea"); // Your CDP API Key
             analytics.page(); // Track page view immediately when page loads
         }}();
