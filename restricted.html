@@ -3,8 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Restricted Page</title>
+    <title>Member Space</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        .page-header {
+            text-align: center;
+            padding: 40px 20px 20px;
+            margin-top: 20px; /* Space for a potential menu */
+        }
+
+        .page-header h1 {
+            margin: 0;
+            color: #333;
+            font-size: 28px;
+        }
+
+        .page-header p {
+            color: #666;
+            font-size: 16px;
+        }
+
         .container {
             display: flex;
             flex-wrap: wrap;
@@ -13,6 +37,7 @@
             margin: 20px auto;
             font-family: Arial, sans-serif;
         }
+
         .message-box {
             width: 45%;
             background-color: #f4f4f4;
@@ -24,6 +49,14 @@
     </style>
 </head>
 <body>
+
+    <!-- Page Header with Title and Subtitle -->
+    <div class="page-header">
+        <h1>Welcome to your Member Space</h1>
+        <p>If there are surveys available, they will appear here.</p>
+    </div>
+
+    <!-- Container for In-App Messages -->
     <div class="container">
         <div id="employment-inline-message" class="message-box">
             <!-- Placeholder for Employment inline in-app message -->
