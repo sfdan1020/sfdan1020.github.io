@@ -14,27 +14,27 @@
     <!-- Customer.io Tracking Script -->
     <script>
         !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on","addSourceMiddleware","addIntegrationMiddleware","setAnonymousId","addDestinationMiddleware"];analytics.factory=function(e){return function(){var t=Array.prototype.slice.call(arguments);t.unshift(e);analytics.push(t);return analytics}};for(var e=0;e<analytics.methods.length;e++){var key=analytics.methods[e];analytics[key]=analytics.factory(key)}analytics.load=function(key,e){var t=document.createElement("script");t.type="text/javascript";t.async=!0;t.src="https://cdp-eu.customer.io/v1/analytics-js/snippet/" + key + "/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(t,n);analytics._writeKey=key;analytics._loadOptions=e};analytics.SNIPPET_VERSION="4.15.3";
-            analytics.load("4f630e239b963a29f6ea"); 
-            analytics.page();
-        }}();
+               analytics.load("4f630e239b963a29f6ea"); 
+               analytics.page();
+           }}();
 
-        // Check for cio_id parameter in the URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const cioId = urlParams.get('cio_id');
+           // Check for cio_id parameter in the URL
+           const urlParams = new URLSearchParams(window.location.search);
+           const cioId = urlParams.get('cio_id');
 
-        // Redirect if cio_id is missing
-        if (!cioId) {
-            alert("Access denied: You must access this page through the verification link.");
-            window.location.href = "https://sfdan1020.github.io/index.html"; // Redirect to the registration page
-        } else {
-            // Identify the user in Customer.io with only the cio_id
-            if (window.analytics) {
-                analytics.identify(cioId); // Only use cio_id as the identifier
-                console.log("User identified with cio_id:", cioId);
-            } else {
-                console.error("Customer.io analytics not loaded.");
-            }
-        }
-    </script>
-</body>
-</html>
+           // Redirect if cio_id is missing
+           if (!cioId) {
+               alert("Access denied: You must access this page through the verification link.");
+               window.location.href = "https://sfdan1020.github.io/index.html"; // Redirect to the registration page
+           } else {
+               // Identify the user in Customer.io using only the cio_id
+               if (window.analytics) {
+                   analytics.identify(cioId); // Only use cio_id as the identifier
+                   console.log("User identified with cio_id:", cioId);
+               } else {
+                   console.error("Customer.io analytics not loaded.");
+               }
+           }
+       </script>
+   </body>
+   </html>
