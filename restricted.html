@@ -75,24 +75,34 @@
         </div>
     </div>
 
-    <!-- Basic Customer.io Tracking Script Without In-App Messaging -->
+    <!-- Customer.io Tracking Script with Identification -->
     <script>
         !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on","addSourceMiddleware","addIntegrationMiddleware","setAnonymousId","addDestinationMiddleware"];analytics.factory=function(e){return function(){var t=Array.prototype.slice.call(arguments);t.unshift(e);analytics.push(t);return analytics}};for(var e=0;e<analytics.methods.length;e++){var key=analytics.methods[e];analytics[key]=analytics.factory(key)}analytics.load=function(key){var t=document.createElement("script");t.type="text/javascript";t.async=!0;t.src="https://cdp-eu.customer.io/v1/analytics-js/snippet/" + key + "/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(t,n);analytics._writeKey=key};analytics.SNIPPET_VERSION="4.15.3";
             
             // Basic Customer.io Tracking
             analytics.load("4f630e239b963a29f6ea"); // Your CDP API Key
-            analytics.page(); // Track page view immediately when page loads
         }}();
 
-        // Check for cio_id parameter in the URL to handle access restriction
+        // Check for cio_id parameter in the URL to identify the user
         const urlParams = new URLSearchParams(window.location.search);
         const cioId = urlParams.get('cio_id');
 
-        if (!cioId) {
+        if (cioId) {
+            // Attempt to retrieve email from local storage if saved during registration
+            const userEmail = localStorage.getItem("userEmail");
+
+            // Identify the user with both cio_id and email to prevent duplicate profiles
+            if (window.analytics) {
+                const identifyAttributes = userEmail ? { email: userEmail } : {}; // Only add email if available
+                analytics.identify(cioId, identifyAttributes); // Identify user
+                analytics.page(); // Track page view after identifying the user
+                console.log("Page view tracked for cio_id:", cioId);
+            } else {
+                console.error("Customer.io analytics not loaded.");
+            }
+        } else {
             alert("Access denied: You must access this page through the verification link.");
             window.location.href = "https://sfdan1020.github.io/index.html"; // Redirect to the registration page
-        } else {
-            console.log("Page view tracked for cio_id:", cioId);
         }
     </script>
 </body>
