@@ -7,7 +7,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Welcome to the your Member Space</h1>
+        <h1>Welcome to the Restricted Page</h1>
         <p>This page is accessible only through the verification link.</p>
     </div>
 
@@ -22,20 +22,29 @@
         const urlParams = new URLSearchParams(window.location.search);
         const userEmail = urlParams.get('email');
         const cioId = urlParams.get('cio_id');
+        const firstName = urlParams.get('first_name'); // Optional parameter
+        const lastName = urlParams.get('last_name');   // Optional parameter
 
-        // Redirect if both parameters are missing
+        // Redirect if both email and cio_id are missing
         if (!userEmail && !cioId) {
             alert("Access denied: You must access this page through the verification link.");
             window.location.href = "https://sfdan1020.github.io/index.html"; // Redirect to the registration page
         } else {
-            // Identify the user in Customer.io (optional)
+            // Prepare the attributes object to avoid overwriting existing attributes
+            const attributes = {
+                email: userEmail || null,
+                cio_id: cioId || null
+            };
+            
+            // Conditionally add first_name and last_name if they are present in the URL
+            if (firstName) attributes.first_name = firstName;
+            if (lastName) attributes.last_name = lastName;
+
+            // Identify the user in Customer.io
             if (window.analytics) {
                 const identifier = userEmail || cioId;
-                analytics.identify(identifier, {
-                    email: userEmail || null,   // Retains email if provided, otherwise null
-                    cio_id: cioId || null       // Retains cio_id if provided, otherwise null
-                });
-                console.log("User identified with identifier:", identifier);
+                analytics.identify(identifier, attributes);
+                console.log("User identified with identifier:", identifier, attributes);
             } else {
                 console.error("Customer.io analytics not loaded.");
             }
