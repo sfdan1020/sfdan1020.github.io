@@ -27,9 +27,9 @@
                alert("Access denied: You must access this page through the verification link.");
                window.location.href = "https://sfdan1020.github.io/index.html"; // Redirect to the registration page
            } else {
-               // Identify the user in Customer.io using only the cio_id
+               // Identify the user in Customer.io using only the cio_id, without modifying attributes
                if (window.analytics) {
-                   analytics.identify(cioId); // Only use cio_id as the identifier
+                   analytics.identify(cioId);
                    console.log("User identified with cio_id:", cioId);
                } else {
                    console.error("Customer.io analytics not loaded.");
