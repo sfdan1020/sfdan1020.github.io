@@ -4,18 +4,90 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Restricted Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        .page-header {
+            text-align: center;
+            padding: 40px 20px 20px;
+            margin-top: 20px;
+        }
+
+        .page-header h1 {
+            margin: 0;
+            color: #333;
+            font-size: 28px;
+        }
+
+        .page-header p {
+            color: #666;
+            font-size: 16px;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            max-width: 800px;
+            margin: 20px auto;
+        }
+
+        .message-box {
+            width: 45%;
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Welcome to the Restricted Page</h1>
-        <p>This page is accessible only through the verification link.</p>
+
+    <!-- Page Header with Title and Subtitle -->
+    <div class="page-header">
+        <h1>Welcome to your Member Space</h1>
+        <p>If there are surveys available, they will appear here.</p>
     </div>
 
-    <!-- Customer.io Tracking Script -->
+    <!-- Container for In-App Messages -->
+    <div class="container">
+        <div id="employment-inline-message" class="message-box">
+            <p>Loading Employment message...</p>
+        </div>
+        
+        <div id="automobiles-inline-message" class="message-box">
+            <p>Loading Automobiles message...</p>
+        </div>
+
+        <div id="food-inline-message" class="message-box">
+            <p>Loading Food message...</p>
+        </div>
+
+        <div id="entertainment-inline-message" class="message-box">
+            <p>Loading Entertainment message...</p>
+        </div>
+    </div>
+
+    <!-- Customer.io Tracking Script with Inline In-App Messaging Enabled -->
     <script>
         !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on","addSourceMiddleware","addIntegrationMiddleware","setAnonymousId","addDestinationMiddleware"];analytics.factory=function(e){return function(){var t=Array.prototype.slice.call(arguments);t.unshift(e);analytics.push(t);return analytics}};for(var e=0;e<analytics.methods.length;e++){var key=analytics.methods[e];analytics[key]=analytics.factory(key)}analytics.load=function(key,e){var t=document.createElement("script");t.type="text/javascript";t.async=!0;t.src="https://cdp-eu.customer.io/v1/analytics-js/snippet/" + key + "/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(t,n);analytics._writeKey=key;analytics._loadOptions=e};analytics.SNIPPET_VERSION="4.15.3";
-               analytics.load("4f630e239b963a29f6ea"); 
-               analytics.page();
+               analytics.load(
+                   "4f630e239b963a29f6ea", // Your CDP API Key
+                   { 
+                       "integrations": {
+                           "Customer.io In-App Plugin": { 
+                               siteId: "8659cdcca668fb939ffa" // Your API ID for in-app messaging
+                           }
+                       }
+                   }
+               );
+               analytics.page(); // Track page view for in-app messaging trigger
            }}();
 
            // Check for cio_id parameter in the URL
@@ -27,7 +99,7 @@
                alert("Access denied: You must access this page through the verification link.");
                window.location.href = "https://sfdan1020.github.io/index.html"; // Redirect to the registration page
            } else {
-               // Track page view for the user with Customer.io page() instead of identify()
+               // Track page view for the user with Customer.io page() after identify
                if (window.analytics) {
                    analytics.page(); // Track page view without creating/modifying profile
                    console.log("Page view tracked for cio_id:", cioId);
@@ -36,5 +108,5 @@
                }
            }
        </script>
-   </body>
-   </html>
+</body>
+</html>
