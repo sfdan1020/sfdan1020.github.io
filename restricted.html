@@ -52,25 +52,25 @@
     <!-- Page Header with Title and Subtitle -->
     <div class="page-header">
         <h1>Welcome to your Member Space</h1>
-        <p>If there are surveys available, they will appear here.</p>
+        <p>Your surveys are loading! If any are available, they’ll appear here shortly</p>
     </div>
 
-    <!-- Container for In-App Messages -->
+    <!-- Container for In-App Messages with Default Content -->
     <div class="container">
         <div id="employment-inline-message" class="message-box">
-            <p>Loading Employment message...</p>
+            <p id="employment-content">Explore Employment opportunities tailored for you. Loading...</p>
         </div>
         
         <div id="automobiles-inline-message" class="message-box">
-            <p>Loading Automobiles message...</p>
+            <p id="automobiles-content">If you’re interested in automobiles, keep an eye out here! Loading...</p>
         </div>
 
         <div id="food-inline-message" class="message-box">
-            <p>Loading Food message...</p>
+            <p id="food-content">We're looking for foodies. Loading...</p>
         </div>
 
         <div id="entertainment-inline-message" class="message-box">
-            <p>Loading Entertainment message...</p>
+            <p id="entertainment-content">Review your favorite movies! Loading..</p>
         </div>
     </div>
 
@@ -107,6 +107,20 @@
                    console.error("Customer.io analytics not loaded.");
                }
            }
-       </script>
+
+           // Event listener for in-app message dismissal or interaction
+           function restoreDefaultContent() {
+               document.getElementById("employment-content").innerHTML = "Did you know? By answering profiling questions like this, you’re boosting your chances of qualifying!";
+               document.getElementById("automobiles-content").innerHTML = "It’s normal not to qualify for a survey! For example, if we’re looking for people who made a purchase last week, we can’t always predict if that’s you!";
+               document.getElementById("food-content").innerHTML = "On average, you’ll qualify for 3 out of every 10 surveys you try. We’ll let you know right at the start, so you don’t waste any time!";
+               document.getElementById("entertainment-content").innerHTML = "Sometimes surveys won’t be available, but don’t worry! Check back later, or we’ll keep you posted via email.";
+           }
+
+           // Assume Customer.io provides a function to listen for in-app dismiss
+           if (window.analytics) {
+               analytics.on('inAppMessage:dismiss', restoreDefaultContent);
+               analytics.on('inAppMessage:click', restoreDefaultContent); // Restore after click as well
+           }
+   </script>
 </body>
 </html>
