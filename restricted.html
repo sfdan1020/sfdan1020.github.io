@@ -44,6 +44,16 @@
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             text-align: center;
+            min-height: 80px;
+        }
+
+        .loading, .fallback {
+            color: #888;
+            font-size: 14px;
+        }
+
+        .fallback {
+            display: none;
         }
     </style>
 </head>
@@ -55,22 +65,26 @@
         <p>Your surveys are loading! If any are available, they’ll appear here shortly</p>
     </div>
 
-    <!-- Container for In-App Messages with Default Content -->
+    <!-- Container for In-App Messages with Loading and Fallback Content -->
     <div class="container">
         <div id="employment-inline-message" class="message-box">
-            <p id="employment-content">Explore Employment opportunities tailored for you. Loading...</p>
+            <p class="loading">Loading Employment opportunities...</p>
+            <p class="fallback">Explore Employment opportunities tailored for you.</p>
         </div>
         
         <div id="automobiles-inline-message" class="message-box">
-            <p id="automobiles-content">If you’re interested in automobiles, keep an eye out here! Loading...</p>
+            <p class="loading">Loading Automobiles section...</p>
+            <p class="fallback">If you’re interested in automobiles, keep an eye out here!</p>
         </div>
 
         <div id="food-inline-message" class="message-box">
-            <p id="food-content">We're looking for foodies. Loading...</p>
+            <p class="loading">Loading Food options...</p>
+            <p class="fallback">We're looking for foodies.</p>
         </div>
 
         <div id="entertainment-inline-message" class="message-box">
-            <p id="entertainment-content">Review your favorite movies! Loading..</p>
+            <p class="loading">Loading Entertainment section...</p>
+            <p class="fallback">Review your favorite movies!</p>
         </div>
     </div>
 
@@ -108,26 +122,25 @@
                }
            }
 
-           // Set default content for each message container on page load
-           function setDefaultContent() {
-               document.getElementById("employment-content").innerHTML = "Explore Employment opportunities tailored for you.";
-               document.getElementById("automobiles-content").innerHTML = "If you’re interested in automobiles, keep an eye out here!";
-               document.getElementById("food-content").innerHTML = "We're looking for foodies.";
-               document.getElementById("entertainment-content").innerHTML = "Review your favorite movies!";
+           // Event listener to show fallback content after in-app message is dismissed or clicked
+           function showFallbackContent() {
+               document.querySelectorAll('.loading').forEach(function(loading) {
+                   loading.style.display = 'none';
+               });
+               document.querySelectorAll('.fallback').forEach(function(fallback) {
+                   fallback.style.display = 'block';
+               });
            }
 
-           // Event listener for in-app message dismissal or interaction
-           function restoreDefaultContent() {
-               setDefaultContent(); // Restore content after dismissal or click
-           }
-
-           // Initialize default content on page load
-           window.onload = setDefaultContent;
-
-           // Bind Customer.io in-app message events
+           // Bind Customer.io in-app message events to show fallback content after interaction
            if (window.analytics) {
-               analytics.on('inAppMessage:dismiss', restoreDefaultContent);
-               analytics.on('inAppMessage:click', restoreDefaultContent); // Restore after click as well
+               analytics.on('inAppMessage:shown', function() {
+                   document.querySelectorAll('.loading').forEach(function(loading) {
+                       loading.style.display = 'none';
+                   });
+               });
+               analytics.on('inAppMessage:dismiss', showFallbackContent);
+               analytics.on('inAppMessage:click', showFallbackContent); // Restore fallback content after click as well
            }
    </script>
 </body>
