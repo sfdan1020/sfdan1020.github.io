@@ -59,7 +59,7 @@
 </head>
 <body>
 
-    <!-- Page Header with Title and Subtitle -->
+    <!-- Page Header with Title, Subtitle, and Countdown Timer -->
     <div class="page-header">
         <h1>Welcome to your Member Space</h1>
         <p>Your surveys are loading! If any are available, they’ll appear here shortly (<span id="timer">30</span> seconds)</p>
@@ -142,6 +142,22 @@
                analytics.on('inAppMessage:dismiss', showFallbackContent);
                analytics.on('inAppMessage:click', showFallbackContent); // Restore fallback content after click as well
            }
+
+           // Countdown Timer
+           let countdown = 30;
+           const timerElement = document.getElementById('timer');
+
+           function updateTimer() {
+               if (countdown > 0) {
+                   timerElement.textContent = countdown;
+                   countdown--;
+               } else {
+                   clearInterval(timerInterval);
+                   timerElement.textContent = "0";
+               }
+           }
+
+           const timerInterval = setInterval(updateTimer, 1000);
    </script>
 </body>
 </html>
