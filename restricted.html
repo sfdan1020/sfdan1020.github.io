@@ -108,15 +108,23 @@
                }
            }
 
-           // Event listener for in-app message dismissal or interaction
-           function restoreDefaultContent() {
-               document.getElementById("employment-content").innerHTML = "Did you know? By answering profiling questions like this, you’re boosting your chances of qualifying!";
-               document.getElementById("automobiles-content").innerHTML = "It’s normal not to qualify for a survey! For example, if we’re looking for people who made a purchase last week, we can’t always predict if that’s you!";
-               document.getElementById("food-content").innerHTML = "On average, you’ll qualify for 3 out of every 10 surveys you try. We’ll let you know right at the start, so you don’t waste any time!";
-               document.getElementById("entertainment-content").innerHTML = "Sometimes surveys won’t be available, but don’t worry! Check back later, or we’ll keep you posted via email.";
+           // Set default content for each message container on page load
+           function setDefaultContent() {
+               document.getElementById("employment-content").innerHTML = "Explore Employment opportunities tailored for you.";
+               document.getElementById("automobiles-content").innerHTML = "If you’re interested in automobiles, keep an eye out here!";
+               document.getElementById("food-content").innerHTML = "We're looking for foodies.";
+               document.getElementById("entertainment-content").innerHTML = "Review your favorite movies!";
            }
 
-           // Assume Customer.io provides a function to listen for in-app dismiss
+           // Event listener for in-app message dismissal or interaction
+           function restoreDefaultContent() {
+               setDefaultContent(); // Restore content after dismissal or click
+           }
+
+           // Initialize default content on page load
+           window.onload = setDefaultContent;
+
+           // Bind Customer.io in-app message events
            if (window.analytics) {
                analytics.on('inAppMessage:dismiss', restoreDefaultContent);
                analytics.on('inAppMessage:click', restoreDefaultContent); // Restore after click as well
